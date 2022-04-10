@@ -1,3 +1,31 @@
+(define-library (chibi diff)
+  (import (scheme base) (srfi srfi-1) (ice-9 optargs))
+  (export lcs lcs-with-positions
+          diff write-diff diff->string
+          write-edits edits->string edits->string/color
+          write-line-diffs
+          write-line-diffs/color
+          write-char-diffs
+          write-char-diffs/color)
+
+  (begin
+    (define-syntax let-optionals
+      (syntax-rules ()
+        ((let-optionals rest-arg (binding ...) body1 body2 ...)
+         (let-optional rest-arg (binding ...) body1 body2 ...))))
+
+    (define (port->list reader port)
+      (let lp ((res '()))
+        (let ((x (reader port)))
+          (if (eof-object? x)
+              (reverse res)
+              (lp (cons x res))))))
+
+    (define (red s)
+      s)
+
+    (define (green s)
+      s)
 
 ;; utility for lcs-with-positions
 (define (max-seq . o)
@@ -277,3 +305,5 @@
     (let ((out (open-output-string)))
       (write-edits ls lcs type writer out)
       (get-output-string out))))
+
+))

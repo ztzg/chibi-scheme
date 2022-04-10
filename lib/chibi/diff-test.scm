@@ -4,7 +4,7 @@
   (export run-tests)
   (cond-expand
    (chibi (import (chibi test)))
-   (else
+   (guile
     (import (scheme write))
     ;; inline (chibi test) to avoid circular dependencies in snow
     ;; installations
@@ -56,8 +56,9 @@
             (edits->string (car d) (car (cddr d)) 1))
         (test "A «G» C «AT» "
             (edits->string (cadr d) (car (cddr d)) 2))
-        (test "\x1b;[31mG\x1b;[39mAC"
-            (edits->string/color (car d) (car (cddr d)) 1))
-        (test "A\x1b;[32mG\x1b;[39mC\x1b;[32mAT\x1b;[39m"
-            (edits->string/color (cadr d) (car (cddr d)) 2)))
+        ;; (test "\x1b;[31mG\x1b;[39mAC"
+        ;;     (edits->string/color (car d) (car (cddr d)) 1))
+        ;; (test "A\x1b;[32mG\x1b;[39mC\x1b;[32mAT\x1b;[39m"
+        ;;     (edits->string/color (cadr d) (car (cddr d)) 2))
+        )
       (test-end))))
